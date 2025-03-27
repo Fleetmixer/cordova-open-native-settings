@@ -4,11 +4,10 @@
 
 - (BOOL)do_open:(NSString *)pref {
     if (@available(iOS 10.0, *)) {
-        if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref] options:@{} completionHandler:nil]) {
-            return YES;
-        } else {
-            return NO;
-        }
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref] options:@{} completionHandler:^(BOOL success) {
+            // Handle the result if needed
+        }];
+        return YES; // or handle the success result from the completionHandler
     } else {
         if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref]]) {
             return YES;
