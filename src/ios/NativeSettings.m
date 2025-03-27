@@ -3,10 +3,18 @@
 @implementation NativeSettings
 
 - (BOOL)do_open:(NSString *)pref {
-    if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref]]) {
-        return YES;
+    if (@available(iOS 10.0, *)) {
+        if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref] options:@{} completionHandler:nil]) {
+            return YES;
+        } else {
+            return NO;
+        }
     } else {
-        return NO;
+        if ([[UIApplication sharedApplication] openURL:[NSURL URLWithString:pref]]) {
+            return YES;
+        } else {
+            return NO;
+        }
     }
 }
 
